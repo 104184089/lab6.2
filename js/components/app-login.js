@@ -67,6 +67,7 @@ const Login = {
         this.checkAuth();
     },
     template: `
+    <div id="loginForm">
     <v-container>
         <v-card class="form-container">
             <v-form ref="myForm" class="loginForm">
@@ -99,5 +100,6 @@ const Login = {
             </v-form>
         </v-card>
     </v-container>
+    </div>
     `,
 }

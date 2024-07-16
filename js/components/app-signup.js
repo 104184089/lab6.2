@@ -33,9 +33,13 @@ const Signup = {
             this.show = !this.show
         },
         validate() {
-            if (this.$refs.myForm.validate()) {
-                this.register();
-            }
+            this.$refs.myForm.validate().then(valid => {
+                if (valid) {
+                    this.register();
+                } else {
+                    this.error = "Please correct the errors in the form.";
+                }
+            });
         },
         register() {
             const requestOptions = {
@@ -69,8 +73,8 @@ const Signup = {
         }
     },
 
-    template:
-        `
+    template: `
+    <div id="signupForm">
     <v-container fill-height>
         <v-card class="form-container">
             <h2 class="text-center mb-4">Registration</h2>
@@ -94,7 +98,7 @@ const Signup = {
                     </v-col>
                     <v-col cols="6">
                         <v-text-field v-model="repassword" :rules="[(v) => !!v || 'Re-enter password is required',
-                        (v) => v === password || 'Passwords do not match']" label="Re-password" type="password" required></v-text-field>
+                        (v) => v === this.password || 'Passwords do not match']" label="Re-password" type="password" required></v-text-field>
                     </v-col>
                 </v-row>
                 <v-row>
@@ -137,5 +141,6 @@ const Signup = {
             </v-form>
         </v-card>
     </v-container>
+    </div>
     `,
 }

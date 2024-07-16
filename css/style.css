@@ -1,0 +1,78 @@
+/* CSS for Login Page */
+#loginForm .v-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#loginForm .v-card.form-container {
+    padding: 20px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    background-color: #ffffff;
+}
+
+/* Header for the form */
+#loginForm .v-card h2 {
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: bold;
+}
+
+#loginForm .v-btn {
+    float: right;
+}
+
+/* CSS for Sign up Page */
+#signupForm .v-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#signupForm .v-card.form-container {
+    padding: 20px;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    background-color: #ffffff;
+}
+
+#signupForm .v-card h2 {
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: bold;
+}
+
+#signupForm .v-btn {
+    float: right;
+    margin-right: 10px;
+}
+
+/* CSS for Error message */
+#signupForm .v-alert {
+    margin-top: 10px;
+}
+
+#signupForm .terms-card {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+#signupForm .terms-card .v-card-title {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+#signupForm .terms-card .v-card-text {
+    font-size: 14px;
+    color: #555;
+}

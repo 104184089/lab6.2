@@ -41,18 +41,18 @@ if (!isset($input['firstname'], $input['lastname'], $input['username'], $input['
     exit();
 }
 
-$firstname = $input['firstname'];
-$lastname = $input['lastname'];
-$username = $input['username'];
-$password = $input['password'];
-$email = $input['email'];
+$firstname = $conn->real_escape_string($input['firstname']);
+$lastname = $conn->real_escape_string($input['lastname']);
+$username = $conn->real_escape_string($input['username']);
+$password = $conn->real_escape_string($input['password']);
+$email = $conn->real_escape_string($input['email']);
 
 // Check if username is unique
 $sql_check = "SELECT * FROM TheNews_users WHERE username = '$username'";
 $result_check = $conn->query($sql_check);
 if ($result_check->num_rows > 0) {
     echo json_encode(array("success" => false, "message" => "Username already exists"));
-    exit();
+    return;
 }
 
 // Encrypt passwords

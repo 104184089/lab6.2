@@ -31,6 +31,8 @@ const router = VueRouter.createRouter({
     }
 })
 
+const vuetify = Vuetify.createVuetify()
+
 const app = Vue.createApp({
     data() {
         return {
@@ -103,8 +105,6 @@ app.component('nav-bar', {
     }
 });
 
-
-const vuetify = Vuetify.createVuetify()
 app.use(vuetify)
 app.use(router)
 app.mount('#app')
