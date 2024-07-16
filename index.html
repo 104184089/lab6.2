@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Vu Minh Quang">
+    <meta name="description" content="Use Vuejs create webpage (D HD)">
+    <title>The News</title>
+
+    <!-- CSS bootstrap -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <!-- Custom CSS  -->
+     <link rel="stylesheet" href="css/style.css">
+    <!-- JavaScript bootstrap -->
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Script Vue.js & Vue Router -->
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+
+    <!-- vuetify -->
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <!-- link to material design -->
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@3.1.11/dist/vuetify.min.css" rel="stylesheet">
+    <!-- link to vuetify -->
+
+    <!-- Vuetify  -->
+ 	<script src="https://cdn.jsdelivr.net/npm/vuetify@3.1.11/dist/vuetify.min.js"></script>
+
+    <!-- Load Vue Paginate JS file-->
+	<script src="js/vuejs-paginate.js"></script>
+
+    <!-- load component javascript files -->
+    <script src="js/components/app-login.js" defer></script>
+    <script src="js/components/app-navbar.js" defer></script>
+    <script src="js/components/app-home.js" defer></script>
+    <script src="js/components/app-signup.js" defer></script>
+    <script src="js/components/app-about.js" defer></script>
+    <script src="js/components/app-news.js" defer></script>
+
+    <!-- Main JS file  -->
+    <script src="js/main.js" defer></script>
+</head>
+
+<body>
+    <div id="app">
+        <nav-bar v-if="authenticated"></nav-bar>
+        <router-view @authenticated="setAuthenticated"></router-view>
+    </div>
+</body>
+
+</html>
