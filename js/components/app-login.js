@@ -7,16 +7,10 @@ const Login = {
                 username: "",
                 password: "",
             },
-            usernameRules: [
-                v => !!v || 'Name is required',
-                v => (v && v.length <= 10) || 'Name must be less than 10 characters',
+            userNameRules: [
+                (v) => !!v || 'Required',
+                (v) => v.length >= 3 || 'Username must be at least 3 characters',
             ],
-            passwordRules: [
-                v => !!v || 'Password is required',
-                v => (v && v.length >= 8) || 'Password must be more than 8 characters',
-            ],
-
-
         }
     },
     methods: {
@@ -74,12 +68,12 @@ const Login = {
                 <h2 class="text-center mb-4">Login</h2>
                 <v-row>
                     <v-col cols="12">
-                        <v-text-field v-model="input.username" :counter="10" :rules="usernameRules" label="Username" required></v-text-field>
+                        <v-text-field v-model="input.username" :rules="usernameRules" label="Username" required></v-text-field>
                     </v-col>
                 </v-row>
                 <v-row>
                     <v-col cols="12">
-                        <v-text-field v-model="input.password" label="Password" type="password" :rules="passwordRules" required></v-text-field>
+                        <v-text-field v-model="input.password" label="Password" type="password" required></v-text-field>
                     </v-col>
                 </v-row>
                 <v-row>

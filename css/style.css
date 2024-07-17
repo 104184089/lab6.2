@@ -76,3 +76,206 @@
     font-size: 14px;
     color: #555;
 }
+
+/* CSS for nav bar  */
+#nav-bar {
+    background-color: #f8f9fa;
+    box-shadow: 0 4px 6px -6px #222;
+    padding: 10px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+#nav-bar .row {
+    margin: 0;
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-item {
+    line-height: 1.5em;
+}
+
+.nav-underline .nav-link {
+    color: #555;
+    font-size: 1.1em;
+    margin: 0 10px;
+    padding: 10px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.nav-underline .nav-link.active,
+.nav-underline .nav-link:hover {
+    color: #007bff;
+    border-bottom: 2px solid #007bff;
+}
+
+.logo-item {
+    font-size: 1.5em;
+    font-weight: bold;
+    border-right: 2px solid #555;
+}
+
+.logo-item .nav-logo {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 15px;
+    padding: 5px 10px;
+    width: 300px;
+    transition: width 0.3s ease-in-out;
+}
+
+.search-input:focus {
+    width: 350px;
+}
+
+.btn-login {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #007bff;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    padding: 5px 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-login:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .nav-content {
+        flex-direction: column;
+    }
+
+    .nav-right {
+        margin-top: 10px;
+    }
+
+    .search-input {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .btn-login {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* CSS for home component  */
+#home-background {
+    background-image: url('../img/background-home.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-content {
+    background-color: rgba(255, 255, 255, 0.9);
+    max-width: 800px;
+    
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* CSS for news component  */
+#news-component {
+    padding: 20px;
+}
+
+#topArticles {
+    margin-bottom: 20px; 
+}
+
+#topArticles button {
+    height: 300px;
+    width: 20px;
+    font-size: 20px;
+    padding: 0;
+    background-color: #555;
+    border: #555;
+}
+
+#topArticles .card {
+    width: 286px;
+}
+
+#topArticles .card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+#topArticles .card .card-body .card-title {
+    font-size: 1rem;
+    overflow: hidden; 
+    white-space: normal; 
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 5px;
+    color: black;
+    text-decoration: underline;
+    text-decoration-color: black;
+}
+
+@media (max-width: 768px) {
+    #topArticles .card {
+        width: 100%; 
+        margin-right: 0 !important;
+    }
+}
+
+#other-article-title {
+    font-size: 20px;
+    font-weight: bold;
+}
+#other-article-author {
+    font-size: 15px;
+    font-style: italic;
+}
+#other-article-readmore {
+    font-weight: bold;
+}
+.currentPage a {
+    background-color: #007bff;
+    color: white;
+    border-radius: 0.25rem;
+}
+.page-item {
+    cursor: pointer;
+}
+.pagination {
+    text-align: center;
+    font-size: 18px;
+    padding: 10px 0;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+}
+/* CSS for search result component  */
+#searchResult .card {
+    height: fit-content;
+}

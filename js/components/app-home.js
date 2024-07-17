@@ -1,7 +1,8 @@
 const Home = {
     template: `
+    <div id="home-background">
     <div class="container mt-5">
-        <div class="card mx-auto" style="max-width: 800px;">
+        <div class="card mx-auto home-content" style="max-width: 800px;">
             <div class="card-header text-center">
                 <h2>Welcome to The News Web App</h2>
             </div>
@@ -35,6 +36,7 @@ const Home = {
                 </p>
             </div>
         </div>
+    </div>
     </div>
     `,
 }

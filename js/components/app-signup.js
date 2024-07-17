@@ -7,6 +7,7 @@ const Signup = {
         repassword: "",
         email: "",
         show: false,
+        valid: false,
         error: "",
         success: "",
         nameRules: [
@@ -30,14 +31,16 @@ const Signup = {
 
     methods: {
         toggle() {
-            this.show = !this.show
+            this.show = !this.show;
         },
         validate() {
-            this.$refs.myForm.validate().then(valid => {
-                if (valid) {
+            this.$refs.myForm.validate().then((result) => {
+                this.valid = result.valid;
+                console.log("Form valid:", result);
+                if (this.valid) {
                     this.register();
                 } else {
-                    this.error = "Please correct the errors in the form.";
+                    this.error = "Correct all errors before submitting the form.";
                 }
             });
         },
@@ -78,7 +81,7 @@ const Signup = {
     <v-container fill-height>
         <v-card class="form-container">
             <h2 class="text-center mb-4">Registration</h2>
-            <v-form ref="myForm" @submit.prevent="validate" class="signupForm">
+            <v-form ref="myForm" v-model="valid" class="signupForm">
                 <v-row>
                     <v-col cols="6">
                         <v-text-field v-model="firstname" :rules="nameRules" label="First Name" required></v-text-field>
@@ -98,7 +101,7 @@ const Signup = {
                     </v-col>
                     <v-col cols="6">
                         <v-text-field v-model="repassword" :rules="[(v) => !!v || 'Re-enter password is required',
-                        (v) => v === this.password || 'Passwords do not match']" label="Re-password" type="password" required></v-text-field>
+                                        (v) => v === password || 'Passwords do not match']" label="Re-password" type="password" required></v-text-field>
                     </v-col>
                 </v-row>
                 <v-row>
@@ -119,7 +122,7 @@ const Signup = {
                 <v-row>
                     <v-col cols="12" class="btn-container">
                         <v-btn color="primary" @click="toggle">Terms and Condition</v-btn>
-                        <v-btn type="submit" color="success">Submit</v-btn>
+                        <v-btn type="submit" @click.prevent="validate" color="success">Submit</v-btn>
                     </v-col>
                 </v-row>
                 <v-row v-if="show">

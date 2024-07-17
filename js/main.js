@@ -9,6 +9,11 @@ const router = VueRouter.createRouter({
             name: "login"
         },
         {
+            path: '/signup',
+            component: Signup,
+            name: 'signup'
+        },
+        {
             path: '/logout',
             name: "logout"
         },
@@ -18,9 +23,15 @@ const router = VueRouter.createRouter({
             name: 'home'
         },
         {
-            path: '/signup',
-            component: Signup,
-            name: 'signup'
+            path: '/news',
+            component: News,
+            name: 'news'
+        },
+        {
+            path: '/search-results',
+            component: searchResult,
+            name: 'search-results',
+            props: route => ({ searchInput: route.query.input }),
         },
     ],
     scrollBehavior() {
@@ -56,7 +67,6 @@ const app = Vue.createApp({
     methods: {
         setAuthenticated(status) {
             this.authenticated = status;
-            // Lưu trạng thái đăng nhập vào localStorage
             localStorage.setItem('authenticated', status);
         },
         logout() {
@@ -72,7 +82,7 @@ const app = Vue.createApp({
 app.component('nav-bar', {
     template: 
     `
-    <div class="container-fluid">
+    <div class="container-fluid" id="nav-bar">
         <div class="row">
             <nav id="nav_bar" class="w-100">
                 <div class="nav-content">
@@ -90,7 +100,7 @@ app.component('nav-bar', {
                         </li>
                     </ul>
                     <div class="nav-right">
-                        <input type="text" class="form-control search-input" placeholder="Search...">
+                        <input type="text" class="form-control search-input" placeholder="Search..." v-model="searchInput" @keyup.enter="search">
                         <router-link class="btn btn-outline-primary btn-login" to="/login" v-on:click="logout()">Log out<v-icon>mdi-logout</v-icon></router-link>
                     </div>
                 </div>
@@ -98,11 +108,21 @@ app.component('nav-bar', {
         </div>
     </div>
     `,
+    data() {
+        return {
+            searchInput: '',
+        }
+    },
     methods: {
         logout() {
             this.$root.logout();
+        },
+        search() {
+            if (this.searchInput.trim() !== '') {
+                this.$router.push({ name: 'search-results', query: { input: this.searchInput } });
+            }
         }
-    }
+    },
 });
 
 app.use(vuetify)
