@@ -28,6 +28,11 @@ const router = VueRouter.createRouter({
             name: 'news'
         },
         {
+            path: '/profile',
+            component: Profile,
+            name: 'profile'
+        },
+        {
             path: '/search-results',
             component: searchResult,
             name: 'search-results',
@@ -96,7 +101,7 @@ app.component('nav-bar', {
                             <router-link class="nav-link" :class="{ active: $route.path === '/news' }" to="/news">News</router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link class="nav-link" :class="{ active: $route.path === '/about' }" to="/about">About</router-link>
+                            <router-link class="nav-link" :class="{ active: $route.path === '/profile' }" to="/profile">Profile</router-link>
                         </li>
                     </ul>
                     <div class="nav-right">

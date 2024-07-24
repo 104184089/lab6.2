@@ -135,6 +135,10 @@ const Signup = {
                             </v-card-text>
                         </v-card>
                     </v-col>
+
+
+
+                    
                 </v-row>
                 <v-row>
                     <v-col cols="12">
