@@ -31,7 +31,7 @@ const News = {
     methods: {
         fetchArticles() {
             // fetch api to get data
-            fetch("https://newsapi.org/v2/everything?q=tesla&from=2024-06-21&sortBy=publishedAt&apiKey=6d9c90bee93d417a9e02cda2b6350693")
+            fetch("https://newsapi.org/v2/everything?q=tesla&from=2024-06-25&sortBy=publishedAt&apiKey=6d9c90bee93d417a9e02cda2b6350693")
                 .then(response => response.json())
                 .then(data => {
                     this.articles = data.articles;
@@ -41,7 +41,7 @@ const News = {
 
         // fetch other topic of article using API
         fetchOtherArticles(page = 1) {
-            fetch("https://newsapi.org/v2/everything?q=apple&from=2024-07-20&to=2024-07-20&sortBy=popularity&apiKey=6d9c90bee93d417a9e02cda2b6350693")
+            fetch("https://newsapi.org/v2/everything?q=apple&from=2024-07-24&to=2024-07-24&sortBy=popularity&apiKey=6d9c90bee93d417a9e02cda2b6350693")
                 .then(response => response.json())
                 .then(data => {
                     this.otherArticles = data.articles;
@@ -65,6 +65,16 @@ const News = {
         // For pagination of others article
         clickCallback(pageNum) {
             this.currentPage = Number(pageNum);
+        },
+
+        addToReadingList(article) {
+            // Add article to local storage
+            let readingList = JSON.parse(localStorage.getItem('readingList')) || [];
+            // Add new article
+            readingList.push(article);
+            // Example: this.$http.post('/api/reading-list', article);
+            localStorage.setItem('readingList', JSON.stringify(readingList));
+            console.log('Adding article to reading list:', article);
         },
     },
     mounted() {
@@ -113,11 +123,12 @@ const News = {
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th scope="col" class="col-md-4">Image</th>
+                                <th scope="col" class="col-md-3">Image</th>
                                 <th scope="col" class="col-md-3">Title</th>
-                                <th scope="col" class="col-md-2">Author</th>
+                                <th scope="col" class="col-md-1">Author</th>
                                 <th scope="col" class="col-md-2">Published At</th>
                                 <th scope="col" class="col-md-1">View Article</th>
+                                <th scope="col" class="col-md-2">Add to Reading List</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -130,6 +141,9 @@ const News = {
                                 <td>{{ article.publishedAt }}</td>
                                 <td id="other-article-readmore">
                                     <a :href="article.url" target="_blank">Read more</a>
+                                </td>
+                                <td>
+                                    <button @click="addToReadingList(article)" class="btn btn-success">Add to Reading List</button>
                                 </td>
                             </tr>
                         </tbody>
