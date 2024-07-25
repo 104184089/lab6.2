@@ -67,6 +67,7 @@ const News = {
             this.currentPage = Number(pageNum);
         },
 
+        // Function to add the article to reading list
         addToReadingList(article) {
             // Add article to local storage
             let readingList = JSON.parse(localStorage.getItem('readingList')) || [];
@@ -75,6 +76,7 @@ const News = {
             // Example: this.$http.post('/api/reading-list', article);
             localStorage.setItem('readingList', JSON.stringify(readingList));
             console.log('Adding article to reading list:', article);
+            alert("Add To Reading List Successfully!")
         },
     },
     mounted() {

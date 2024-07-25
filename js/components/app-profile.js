@@ -25,7 +25,7 @@ const Profile = {
                     <td>
                         <textarea v-model="article.note" class="form-control mb-2" placeholder="Take a note..."></textarea>
                         <button @click="saveNoteToReadingList(article)" class="btn btn-primary mb-2">Save Note</button><br>
-                        <button @click="removeFromReadingList(article)" class="btn btn-danger">Remove</button>
+                        <button @click="removeFromReadingList(article)" class="btn btn-danger">Remove News</button>
                     </td>
                 </tr>
             </tbody>
@@ -59,6 +59,7 @@ const Profile = {
             if (index !== -1) {
                 this.readingList[index].note = article.note;
                 localStorage.setItem('readingList', JSON.stringify(this.readingList));
+                alert("Your note on this article was saved successfully!")
             }
         },
     },

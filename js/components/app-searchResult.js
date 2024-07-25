@@ -42,7 +42,7 @@ const searchResult = {
     },
     methods: {
         fetchSearchResults() {
-            fetch(`https://newsapi.org/v2/everything?q=${this.searchInput}&from=2024-06-17&sortBy=publishedAt&apiKey=6d9c90bee93d417a9e02cda2b6350693`)
+            fetch(`https://newsapi.org/v2/everything?q=${this.searchInput}&from=2024-06-25&sortBy=publishedAt&apiKey=6d9c90bee93d417a9e02cda2b6350693`)
                 .then(response => response.json())
                 .then(data => {
                     this.searchResults = data.articles;
