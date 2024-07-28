@@ -12,13 +12,13 @@ const Home = {
                 </p>
                 <h3>How to Use the Web App</h3>
                 <p class="card-text">
-                    Our web app is designed to be user-friendly and easy to navigate. Here are some tips on how to use the web app:
+                    The web app is developed with a user-friendly interface that is very easy for users to use. Here are some tips for using the main pages of the application:
                 </p>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">Navigate to the 'News' section to read the latest articles.</li>
                     <li class="list-group-item">Use the 'Search' feature to find specific news topics or articles.</li>
-                    <li class="list-group-item">Visit the 'About' section to learn more about our mission and values.</li>
-                    <li class="list-group-item">Log in to your account to personalize your news feed and save favorite articles.</li>
+                    <li class="list-group-item">Use the 'Add To Reading List' button to save your favourite articles.</li>
+                    <li class="list-group-item">Visit the 'Your Profile' section manage your Reading List and Take Notes.</li>
                     <li class="list-group-item">If you don't have an account, you can sign up easily from the 'Sign Up' page.</li>
                 </ul>
                 <h3>About the Author</h3>

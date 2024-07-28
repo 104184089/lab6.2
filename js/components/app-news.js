@@ -31,7 +31,7 @@ const News = {
     methods: {
         fetchArticles() {
             // fetch api to get data
-            fetch("https://newsapi.org/v2/everything?q=tesla&from=2024-06-25&sortBy=publishedAt&apiKey=6d9c90bee93d417a9e02cda2b6350693")
+            fetch("https://newsapi.org/v2/everything?q=tesla&sortBy=publishedAt&apiKey=6d9c90bee93d417a9e02cda2b6350693")
                 .then(response => response.json())
                 .then(data => {
                     this.articles = data.articles;
@@ -41,7 +41,7 @@ const News = {
 
         // fetch other topic of article using API
         fetchOtherArticles(page = 1) {
-            fetch("https://newsapi.org/v2/everything?q=apple&from=2024-07-24&to=2024-07-24&sortBy=popularity&apiKey=6d9c90bee93d417a9e02cda2b6350693")
+            fetch("https://newsapi.org/v2/everything?q=apple&sortBy=popularity&apiKey=6d9c90bee93d417a9e02cda2b6350693")
                 .then(response => response.json())
                 .then(data => {
                     this.otherArticles = data.articles;

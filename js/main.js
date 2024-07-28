@@ -101,7 +101,7 @@ app.component('nav-bar', {
                             <router-link class="nav-link" :class="{ active: $route.path === '/news' }" to="/news">News</router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link class="nav-link" :class="{ active: $route.path === '/profile' }" to="/profile">Profile</router-link>
+                            <router-link class="nav-link" :class="{ active: $route.path === '/profile' }" to="/profile">Your Profile</router-link>
                         </li>
                     </ul>
                     <div class="nav-right">
