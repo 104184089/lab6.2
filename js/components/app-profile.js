@@ -36,30 +36,34 @@ const Profile = {
     data() {
         return {
             readingList: [], // Store the articles in reading list
+            username: localStorage.getItem('username')  // Get username from local storage
         };
     },
     methods: {
         fetchReadingList() {
-            // Fetch the reading list from an API or local storage
-            this.readingList = JSON.parse(localStorage.getItem('readingList')) || [];
+            if (this.username) {
+                // base on the username was saved in localstorage (app-login.js) I will create for this only user a reading list
+                // Only when this user login, their reading list will be display 
+                this.readingList = JSON.parse(localStorage.getItem(`${this.username}_readingList`)) || [];
+            }
         },
-
-        // addToReadingList(article) {
-        //     this.readingList.push(article);
-        //     localStorage.setItem('readingList', JSON.stringify(this.readingList));
-        // },
 
         removeFromReadingList(article) {
-            this.readingList = this.readingList.filter(a => a.url !== article.url);
-            localStorage.setItem('readingList', JSON.stringify(this.readingList));
+            // Remove the article from reading list of this user who is logging
+            if (this.username) {
+                this.readingList = this.readingList.filter(a => a.url !== article.url);
+                localStorage.setItem(`${this.username}_readingList`, JSON.stringify(this.readingList));
+            }
         },
         saveNoteToReadingList(article) {
-            // Save the note
-            const index = this.readingList.findIndex(a => a.url === article.url);
-            if (index !== -1) {
-                this.readingList[index].note = article.note;
-                localStorage.setItem('readingList', JSON.stringify(this.readingList));
-                alert("Your note on this article was saved successfully!")
+            // Save the note for this user who is logging
+            if (this.username) {
+                const index = this.readingList.findIndex(a => a.url === article.url);
+                if (index !== -1) {
+                    this.readingList[index].note = article.note;
+                    localStorage.setItem(`${this.username}_readingList`, JSON.stringify(this.readingList));
+                    alert("Your note on this article was saved successfully!");
+                }
             }
         },
     },

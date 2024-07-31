@@ -31,23 +31,6 @@ if ($table_check_result->num_rows == 0) {
     }
 }
 
-// Check if table user_topics exists, if not, create it
-$table_check_query = "SHOW TABLES LIKE 'user_topics'";
-$table_check_result = $conn->query($table_check_query);
-
-if ($table_check_result->num_rows == 0) {
-    $create_table_query = "
-    CREATE TABLE user_topics (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        user_id INT NOT NULL,
-        topic VARCHAR(255) NOT NULL,
-        FOREIGN KEY (user_id) REFERENCES TheNews_users(id) ON DELETE CASCADE
-    )";
-
-    if ($conn->query($create_table_query) !== TRUE) {
-        die("Error creating table user_topics: " . $conn->error);
-    }
-}
 
 // Get data from POST
 $input = json_decode(file_get_contents('php://input'), true);

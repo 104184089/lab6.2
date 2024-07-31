@@ -33,6 +33,7 @@ const Login = {
                 .then(data => {
                     if (data.success) {
                         localStorage.setItem('authenticated', true);
+                        localStorage.setItem('username', this.input.username);
                         this.$root.setAuthenticated(true);
                         this.$router.replace({ name: "home" });
                     } else {
@@ -40,7 +41,8 @@ const Login = {
                     }
                 })
                 .catch(error => {
-                    this.err = "Error: " + error;
+                    // this.err = "Error: " + error;
+                    this.err = "Username not found, sign up to create an account."
                 });
 
 
@@ -51,7 +53,8 @@ const Login = {
         },
         checkAuth() {
             const isAuthenticated = localStorage.getItem('authenticated');
-            if (isAuthenticated) {
+            const username = localStorage.getItem('username');  // Saved username to know who is logging and page Profile will display reading list of their
+            if (isAuthenticated && username) {
                 this.$root.setAuthenticated(true);
                 this.$router.replace({ name: "home" });
             }

@@ -275,7 +275,14 @@
     display: flex;
     justify-content: center;
 }
+#news-component button {
+    margin-bottom: 5px;
+}
 /* CSS for search result component  */
 #searchResult .card {
     height: fit-content;
+}
+
+#searchResult label {
+    margin-left: 5px;
 }

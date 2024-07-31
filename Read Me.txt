@@ -2,7 +2,9 @@ Read Me
 
 1. This project use database in localhost
 
-2. The table for registration will automatically create through signup.php
+2.1 Required Sign Up first => to create database
+
+2.2 The table for registration will automatically create through signup.php (when sign up successfully, two table will be create TheNews_users)
 
 3. Create an account first then login to access the web app
 

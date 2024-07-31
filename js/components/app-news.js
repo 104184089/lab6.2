@@ -11,6 +11,11 @@ const News = {
             otherArticles: [],
             currentPage: 1,
             perPage: 8,
+
+            // Social function like and unlike
+            likes: {},
+            // manage user likes
+            userLikes: {},
         };
     },
     computed: {
@@ -69,15 +74,71 @@ const News = {
 
         // Function to add the article to reading list
         addToReadingList(article) {
-            // Add article to local storage
-            let readingList = JSON.parse(localStorage.getItem('readingList')) || [];
-            // Add new article
-            readingList.push(article);
-            // Example: this.$http.post('/api/reading-list', article);
-            localStorage.setItem('readingList', JSON.stringify(readingList));
-            console.log('Adding article to reading list:', article);
-            alert("Add To Reading List Successfully!")
+            const username = localStorage.getItem('username');  // get username from local storage
+            // define the user who is logging and create reading list for them
+            if (username) {
+                // Add article to local storage with the key is the username 
+                let readingList = JSON.parse(localStorage.getItem(`${username}_readingList`)) || [];
+                // Add new article
+                readingList.push(article);
+                localStorage.setItem(`${username}_readingList`, JSON.stringify(readingList));
+                console.log('Adding article to reading list:', article);
+                alert("Add To Reading List Successfully!")
+            } else {
+                alert("error");
+            }
         },
+
+        // display likes number from local storage
+        loadLikes() {
+            this.likes = JSON.parse(localStorage.getItem('article_likes')) || {};
+            const username = localStorage.getItem('username');
+            if (username) {
+                this.userLikes = JSON.parse(localStorage.getItem(`${username}_userLikes`)) || {};
+            }
+        },
+
+        // saved likes number to local storage
+        saveLikes() {
+            localStorage.setItem('article_likes', JSON.stringify(this.likes));
+            const username = localStorage.getItem('username');
+            if (username) {
+                localStorage.setItem(`${username}_userLikes`, JSON.stringify(this.userLikes));
+            }
+        },
+
+        // social function like article
+        like(article) {
+            const url = article.url;
+            const username = localStorage.getItem('username');
+
+            // If user didn't like one specific article
+            if (!this.userLikes[username]) {
+                this.userLikes[username] = {};
+            }
+
+            // If user liked one specific article
+            if (this.userLikes[username][url]) {
+                this.likes[url]--;                      //Reduce the number of likes of the post by 1
+                delete this.userLikes[username][url];   //Remove user's like status for this post
+            } else {
+                this.likes[url] = (this.likes[url] || 0) + 1;    // Increase the number of likes of the post by 1
+                this.userLikes[username][url] = true;            // Record the user's like status for this post
+            }
+
+            this.saveLikes();
+        },
+
+        // get like number for an article to display
+        getLikeCount(article) {
+            return this.likes[article.url] || 0;
+        },
+
+        isLiked(article) {
+            const username = localStorage.getItem('username');
+            return username && this.userLikes[username] && this.userLikes[username][article.url];
+        },
+
     },
     mounted() {
         // fetch articles when the component is mounted
@@ -85,7 +146,12 @@ const News = {
 
         // fetch other topic of articles when component is mounted
         this.fetchOtherArticles();
+
+        // display number of likes from local storage
+        this.loadLikes();
     },
+
+
     template: `
     <div id="news-component">
         <div class="container mt-5">
@@ -130,7 +196,7 @@ const News = {
                                 <th scope="col" class="col-md-1">Author</th>
                                 <th scope="col" class="col-md-2">Published At</th>
                                 <th scope="col" class="col-md-1">View Article</th>
-                                <th scope="col" class="col-md-2">Add to Reading List</th>
+                                <th scope="col" class="col-md-2">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -146,6 +212,11 @@ const News = {
                                 </td>
                                 <td>
                                     <button @click="addToReadingList(article)" class="btn btn-success">Add to Reading List</button>
+                                    
+
+                                    <input @click="like(article)" type="checkbox" class="btn-check" :id="'btn-check-2-outlined'  + article.url.replace(/[^a-zA-Z0-9]/g, '')" autocomplete="off" :checked="isLiked(article)">
+                                    <label class="btn btn-outline-secondary" :for="'btn-check-2-outlined' + article.url.replace(/[^a-zA-Z0-9]/g, '')">Likes: {{ getLikeCount(article) }}</label><br>
+
                                 </td>
                             </tr>
                         </tbody>
