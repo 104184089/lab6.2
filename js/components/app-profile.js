@@ -1,9 +1,9 @@
 const Profile = {
-    template: 
-    `
+    template:
+        `
     <div id="profile">
     <div class="container mt-5">
-        <h2 class="mb-4">My Reading List</h2>
+        <h2 class="mb-4">{{ username }}'s Reading List</h2>
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
@@ -44,26 +44,99 @@ const Profile = {
             if (this.username) {
                 // base on the username was saved in localstorage (app-login.js) I will create for this only user a reading list
                 // Only when this user login, their reading list will be display 
-                this.readingList = JSON.parse(localStorage.getItem(`${this.username}_readingList`)) || [];
+                //this.readingList = JSON.parse(localStorage.getItem(`${this.username}_readingList`)) || [];
+
+                fetch("api-database/get-reading-list.php", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username: this.username })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            this.readingList = data.articles.map(article => ({
+                                url: article.article_url,
+                                urlToImage: article.image_url,
+                                title: article.title,
+                                author: article.author,
+                                publishedAt: article.published_at,
+                                note: article.note
+                            }));
+                        } else {
+                            alert("Failed to fetch reading list: " + data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching reading list:', error);
+                        alert("An error occurred while fetching the reading list.");
+                    });
             }
         },
 
         removeFromReadingList(article) {
             // Remove the article from reading list of this user who is logging
             if (this.username) {
+                // Delete article from local reading list
                 this.readingList = this.readingList.filter(a => a.url !== article.url);
-                localStorage.setItem(`${this.username}_readingList`, JSON.stringify(this.readingList));
+
+                fetch("api-database/remove-reading-list.php", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        username: this.username,
+                        article_url: article.url
+                    })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            console.log('Article removed from reading list:', article);
+                            alert("Article removed from reading list successfully!");
+                        } else {
+                            alert("Failed to remove from reading list: " + data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert("An error occurred while removing from reading list.");
+                    });
             }
         },
         saveNoteToReadingList(article) {
             // Save the note for this user who is logging
             if (this.username) {
-                const index = this.readingList.findIndex(a => a.url === article.url);
-                if (index !== -1) {
-                    this.readingList[index].note = article.note;
-                    localStorage.setItem(`${this.username}_readingList`, JSON.stringify(this.readingList));
-                    alert("Your note on this article was saved successfully!");
-                }
+                const updateNote = {
+                    username: this.username,
+                    article_url: article.url,
+                    note: article.note
+                };
+
+                fetch("api-database/add-note.php", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(updateNote)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            console.log('Note updated successfully:', article);
+                            alert("Note updated successfully!");
+                        } else {
+                            alert("Failed to update note: " + data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert("An error occurred while updating the note.");
+                    });
+            } else {
+                alert("You must be logged in to update the note.");
             }
         },
     },

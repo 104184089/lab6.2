@@ -31,6 +31,31 @@ if ($table_check_result->num_rows == 0) {
     }
 }
 
+// Check if table 'TheNews_user_articles' exists, if not, create it
+$table_check_query_articles = "SHOW TABLES LIKE 'TheNews_user_articles'";
+$table_check_result_articles = $conn->query($table_check_query_articles);
+
+if ($table_check_result_articles->num_rows == 0) {
+    $create_table_query_articles = "
+    CREATE TABLE TheNews_user_articles (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        userID INT NOT NULL,
+        username VARCHAR(255) NOT NULL,
+        article_url VARCHAR(255) NOT NULL,
+        title VARCHAR(255),
+        image_url VARCHAR(255),
+        author VARCHAR(255),
+        published_at DATETIME,
+        note TEXT,
+        date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (userID) REFERENCES TheNews_users(id)
+    )";
+
+    if ($conn->query($create_table_query_articles) !== TRUE) {
+        die("Error creating table: " . $conn->error);
+    }
+}
+
 
 // Get data from POST
 $input = json_decode(file_get_contents('php://input'), true);

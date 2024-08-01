@@ -286,3 +286,6 @@
 #searchResult label {
     margin-left: 5px;
 }
+#searchResult button {
+    margin-top: 5px;
+}
