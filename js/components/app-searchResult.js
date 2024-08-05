@@ -20,7 +20,6 @@ const searchResult = {
                             <input @click="like(article)" type="checkbox" class="btn-check" :id="'btn-check-2-outlined'  + article.url.replace(/[^a-zA-Z0-9]/g, '')" autocomplete="off" :checked="isLiked(article)">
                             <label class="btn btn-outline-secondary" :for="'btn-check-2-outlined' + article.url.replace(/[^a-zA-Z0-9]/g, '')">Likes: {{ getLikeCount(article) }}</label><br>
 
-                            <button @click="addToReadingList(article)" class="btn btn-success">Add to Reading List</button>
                         </div>
                     </div>
                 </div>
@@ -61,47 +60,6 @@ const searchResult = {
                     this.searchResults = data.articles;
                 })
                 .catch(error => console.error('Error fetching search results:', error));
-        },
-
-        // Get article to reading list
-        addToReadingList(article) {
-            const username = localStorage.getItem('username');    // get username from local storage
-            // define the user who is logging and create reading list for them
-            if (username) {
-                // create object importArticle include information of article to save to database
-                const importArticle = {
-                    username: username,
-                    article_url: article.url,
-                    title: article.title,
-                    image_url: article.urlToImage,
-                    author: article.author,
-                    published_at: article.publishedAt,
-                    note: "Article added to reading list"
-                };
-        
-                fetch("api-database/add-reading-list.php", {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(importArticle)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        console.log('Article added to reading list:', article); // Just to test whether added right article or not
-                        alert("Add To Reading List Successfully!");
-                    } else {
-                        alert("Failed to add to reading list: " + data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert("An error occurred while adding to reading list.");
-                });
-            } else {
-                alert("You must be logged in to add to the reading list.");
-            }
         },
 
         // display likes number from local storage

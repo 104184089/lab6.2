@@ -20,7 +20,9 @@ const News = {
     },
     computed: {
         topArticles() {
-            return this.articles.slice(this.currentStartIndex, this.currentStartIndex + 4);
+            return this.articles.filter(article => 
+                article.urlToImage && article.title && article.author && article.publishedAt && article.url
+            ).slice(this.currentStartIndex, this.currentStartIndex + 4);
         },
 
         // Get the number of article for each page
@@ -87,7 +89,7 @@ const News = {
                     published_at: article.publishedAt,
                     note: "Article added to reading list"
                 };
-        
+
                 fetch("api-database/add-reading-list.php", {
                     method: 'POST',
                     headers: {
@@ -95,19 +97,19 @@ const News = {
                     },
                     body: JSON.stringify(importArticle)
                 })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        console.log('Article added to reading list:', article); // Just to test whether added right article or not
-                        alert("Add To Reading List Successfully!");
-                    } else {
-                        alert("Failed to add to reading list: " + data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert("An error occurred while adding to reading list.");
-                });
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            console.log('Article added to reading list:', article); // Just to test whether added right article or not
+                            alert("Add To Reading List Successfully!");
+                        } else {
+                            alert("Failed to add to reading list: " + data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert("An error occurred while adding to reading list.");
+                    });
             } else {
                 alert("You must be logged in to add to the reading list.");
             }
