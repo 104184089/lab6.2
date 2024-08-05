@@ -83,7 +83,8 @@ const app = Vue.createApp({
 
 })
 
-
+// For the search bar, I just include some APIs for news in some specify topics
+// So you can search for "tesla", "apple", "samsung", it will display the related articles
 app.component('nav-bar', {
     template: 
     `
